@@ -11,13 +11,44 @@ from bs4 import BeautifulSoup
 import requests
 import urlparse
 
+
+
+images = []
 ###
 # Routing for your application.
 ###
 
+@app.route('/api/thumbnails')
+def api():
+    
+    url = "https://www.walmart.com/ip/54649026"
+    result = requests.get(url)
+    soup = BeautifulSoup(result.text, "html.parser")
+
+   
+    # This will look for a meta tag with the og:image property
+    og_image = (soup.find('meta', property='og:image') or soup.find('meta', attrs={'name': 'og:image'}))
+    if og_image and og_image['content']:
+        images.append(str(og_image['content']))
+    thumbnail_spec = soup.find('link', rel='image_src')
+    if thumbnail_spec and thumbnail_spec['href']:
+        images.append(str(thumbnail_spec['href']))
+        image = """<img src="%s"><br />"""
+    for img in soup.findAll("img", src=True):
+        images.append(str(img["src"]))
+    
+    error = 'null'
+    message = 'success'
+    #thumbnails = images
+    thumbnails = []
+    out = {'error' : error , 'message' : message , 'thumbnails' : images }
+    
+    return jsonify(out)
+
 @app.route('/')
 def home():
     """Render website's home page."""
+    
     return render_template('home.html')
 
 
