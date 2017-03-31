@@ -5,11 +5,20 @@
 
 <h1 class="page-header">Thumbnails scraped from site</h1>
  {%raw%}
- <div ng-app="myApp" ng-controller="myCtrl">
-    <li ng-repeat="x in thumbs">
-        {{ x }}
-    </li>
+ <div ng-app="myApp" ng-controller="myCtrl" >
+     
+     <div ng-repeat="x in thumbs">
+         <img src={{ x }}></img>
+          
+    </div>
+    <table>
+      <tr ng-repeat="x in test">
+        <td>{{ x }}</td>
+        
+      </tr>
+    </table>
 </div>
+
 {%endraw%}
 
 <script type="" src="/static/js/angular.min.js"></script>
@@ -18,11 +27,14 @@
 var app = angular.module("myApp", []);
 
 app.controller("myCtrl", function($scope, $http) {
-  
+  $scope.thumbs = ['a'];
+  $scope.test = ['b'];
   $http.get('/api/thumbnails')
     .then(function(response) {
-          
-         $scope.thumbs = response.data.thumbnails;
+          let a = response.data;
+         
+         $scope.thumbs = a.thumbnails;
+         $scope.test = [a.thumbnails];
          
     });
     
