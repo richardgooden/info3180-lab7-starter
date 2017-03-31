@@ -18,7 +18,7 @@ images = []
 # Routing for your application.
 ###
 
-@app.route('/api/thumbnails')
+@app.route('/api/thumbnails' ,  methods=['GET'])
 def api():
     
     url = "https://www.walmart.com/ip/54649026"
@@ -40,7 +40,7 @@ def api():
     error = 'null'
     message = 'success'
     #thumbnails = images
-    thumbnails = []
+    
     out = {'error' : error , 'message' : message , 'thumbnails' : images }
     
     return jsonify(out)
@@ -51,6 +51,11 @@ def home():
     
     return render_template('home.html')
 
+@app.route('/thumbnails/view')
+def thumbnails():
+    """Render website's home page."""
+    
+    return render_template('view.html')
 
 ###
 # The functions below should be applicable to all Flask apps.
