@@ -11,6 +11,8 @@
          <img src={{ x }}></img>
           
     </div>
+    <p>can't figure out why above code wont work while the code below proves that 'thumbs' contains a list of strings</p>
+    <p></p>
     <table>
       <tr ng-repeat="x in test">
         <td>{{ x }}</td>
@@ -33,7 +35,7 @@ app.controller("myCtrl", function($scope, $http) {
     .then(function(response) {
           let a = response.data;
          
-         $scope.thumbs = a.thumbnails;
+         $scope.thumbs = a.thumbnails;  
          $scope.test = [a.thumbnails];
          
     });

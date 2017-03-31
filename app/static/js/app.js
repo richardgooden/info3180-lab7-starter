@@ -1,12 +1,13 @@
 // Your JavaScript Code here
-const app = angular.module('thumbnailsApp', []);
+const app = angular.module('MyApp', []);
 
-app.controller('thumbnailsCtrl', function($scope, $http) {
-  $scope.thumbnails = [];
+app.controller('MyCtrl', function($scope, $http) {
+  $scope.thumbs = [];
   $http.get('/api/thumbnails')
     .then(function(response) {
          let a = response.data;
-         $scope.thumbnails = a.thumbnails;
+         $scope.thumbs = a.thumbnails;
+         
     });
     
 })
